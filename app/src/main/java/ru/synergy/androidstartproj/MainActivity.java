@@ -3,6 +3,7 @@ package ru.synergy.androidstartproj;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -13,7 +14,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        TextView textView = (TextView) findViewById(R.id.header);
+
+        TextView textView = (TextView) findViewById(R.id.normal);
+        textView.setText("Text from Java code");
+        textView.setTextColor(Color.RED);
 //
 //        textView.setText("Hello from Java");
 
