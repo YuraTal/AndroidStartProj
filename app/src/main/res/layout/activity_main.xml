@@ -44,7 +44,7 @@
         android:gravity="center"
         android:padding="20dp"
         android:text="Wight match parent"
-        android:textColor="#F0F"
+        android:textColor="#AA00FF"
         android:textSize="26sp"
         android:textStyle="italic" />
 </LinearLayout>
