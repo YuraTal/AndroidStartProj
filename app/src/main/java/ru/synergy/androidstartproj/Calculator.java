@@ -3,6 +3,7 @@ package ru.synergy.androidstartproj;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,7 +41,11 @@ public class Calculator extends AppCompatActivity {
                 // Shared prefs доступ с использованием контекста приложения
 
 //        SharedPreferences prefs = getApplicationContext().getSharedPreferences("PREFS", MODE_PRIVATE);
-//
+
+
+        //// Intent - посылка (намерение) класс как механизм передачи сообщений как в одном приложении так и в сторонних
+
+
 
 
 
@@ -50,6 +55,8 @@ public class Calculator extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d(LogcatTag, "Button have been pushed");
                 calculateAnswer();
+                Intent i =new Intent(Calculator.this, MainActivity.class); // Написать письмо
+                startActivity(i); // отправить его
             }
 
 
@@ -95,6 +102,10 @@ public class Calculator extends AppCompatActivity {
         RadioButton sub = (RadioButton) findViewById(R.id.subtract);
         RadioButton multiply = (RadioButton) findViewById(R.id.multiple);
         RadioButton divide = (RadioButton) findViewById(R.id.divide);
+
+        numOne.setText("0");
+        numTwo.setText("0");
+        add.setChecked(true);
 
         TextView answer = (TextView) findViewById(R.id.result);
 
