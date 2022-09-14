@@ -16,6 +16,8 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+
 public class Calculator extends AppCompatActivity {
 
     private static final String LogcatTag = "CALCULATOR_ACTIVITY";
@@ -54,7 +56,33 @@ public class Calculator extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d(LogcatTag, "Button have been pushed");
-                calculateAnswer();
+                try {
+                    calculateAnswer();
+                }
+                catch (Exception e){
+                    // Прерывание
+//                    e.printStackTrace();
+//                    Toast.makeText(Calculator.this,e.getMessage(), Toast.LENGTH_LONG).show();
+//                    finish();
+
+                    // Восстановление
+                    e.printStackTrace();
+                    Toast.makeText(Calculator.this,e.getMessage(), Toast.LENGTH_LONG).show();
+                    dropFields();
+
+                }
+
+//                catch (IOException e){
+//                    Toast.makeText(Calculator.this,e.getMessage(), Toast.LENGTH_LONG).show();
+//                    finish();
+//                }
+//
+//                catch (ArithmeticException e){
+//                    Toast.makeText(Calculator.this,e.getMessage(), Toast.LENGTH_LONG).show();
+//                    finish();
+//                }
+
+
                 Intent i =new Intent(Calculator.this, MainActivity.class); // Написать письмо
                 //startActivity(i); // отправить его
             }
@@ -92,8 +120,7 @@ public class Calculator extends AppCompatActivity {
         super.onResume();
         Log.d(LifecycleTag, "I'm onResume(), and I'm started");
     }
-
-    private void calculateAnswer() {
+    private void dropFields(){
         EditText numOne = (EditText) findViewById(R.id.editTextNumberDecimal);
         EditText numTwo = (EditText) findViewById(R.id.editTextNumberDecimal2);
 
@@ -102,19 +129,40 @@ public class Calculator extends AppCompatActivity {
         RadioButton multiply = (RadioButton) findViewById(R.id.multiple);
         RadioButton divide = (RadioButton) findViewById(R.id.divide);
 
-//        numOne.setText("0");
-//        numTwo.setText("0");
-//        add.setChecked(true);
+        numOne.setText("0");
+        numTwo.setText("0");
+        add.setChecked(true);
+
+        TextView answer = (TextView) findViewById(R.id.result);
+
+        answer.setText("How we have problems. Try again later");
+    }
+
+    private void calculateAnswer() throws ArithmeticException, IOException {
+        EditText numOne = (EditText) findViewById(R.id.editTextNumberDecimal);
+        EditText numTwo = (EditText) findViewById(R.id.editTextNumberDecimal2);
+
+        RadioButton add = (RadioButton) findViewById(R.id.add);
+        RadioButton sub = (RadioButton) findViewById(R.id.subtract);
+        RadioButton multiply = (RadioButton) findViewById(R.id.multiple);
+        RadioButton divide = (RadioButton) findViewById(R.id.divide);
+
+        numOne.setText("0");
+        numTwo.setText("0");
+        add.setChecked(true);
 
         TextView answer = (TextView) findViewById(R.id.result);
 
         Log.d(LogcatTag, "all views have been founded");
 
 //        try {
-//            int a = 25 / 0;
+//           // int a = 25 / 0;
+//            throw new ArithmeticException("I am generated exception");
 //        } catch (ArithmeticException e) {
-//            e.printStackTrace();
+//            Toast.makeText(this, "There is a problem inside the app", Toast.LENGTH_SHORT).show();
+//            finish();
 //        }
+
         float numone=0;
         float numtwo=0;
         String num1 = numOne.getText().toString();
@@ -159,8 +207,17 @@ public class Calculator extends AppCompatActivity {
 
         answer.setText("The answer is "+ solution);
 
-        Context contextApp = getApplicationContext();
-        Context context = getBaseContext();
+//        Context contextApp = getApplicationContext();
+//        Context context = getBaseContext();
+
+
+        switch ( (int) Math.random()*2) {
+            case 0:
+                throw new ArithmeticException("I am generated arithmetical exception");
+            case 1:
+                throw new IOException("I am generated ioexception");
+
+        }
 
     }
 }
